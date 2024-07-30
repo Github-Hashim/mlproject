@@ -4,7 +4,7 @@ from src.mlproject.exception import CustomException
 import os, sys
 from src.mlproject.utils import read_sql_data
 from sklearn.model_selection import train_test_split
-
+import pandas as pd
 @dataclass
 class DataIngestionConfig:
     train_data_path:str = os.path.join('artifacts', 'train.csv')
@@ -18,7 +18,8 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             ## reading the data from mysql
-            df = read_sql_data()
+            #df = read_sql_data()
+            df = pd.read_csv(os.path.join('notebook/data','raw.csv'))
             logging.info("Reading completed from mysql database.")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
